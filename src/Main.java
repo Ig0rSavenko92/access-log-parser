@@ -1,6 +1,8 @@
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,23 +20,29 @@ public class Main {
                 System.out.println("Указанный путь является путём к папке, а не к файлу");
             if (fileExist == true && isDirectory == false)
                 System.out.println("Путь указан верно. " + "Это файл номер " + count++);
-            if (fileExist == true && isDirectory == false) continue;
+            if (fileExist == true && isDirectory == false) ;
             try {
                 FileReader fileReader = new FileReader(path);
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line;
                 int lines = 0;
+                List <Integer> len = new ArrayList<>();
                 while ((line = reader.readLine()) != null) {
                     int length = line.length();
+                    len.add(length);
                     lines++;
                 }
-                System.out.println(lines);
+                int max = len.stream().max(Integer::compare).get();
+                int min = len.stream().min(Integer::compare).get();
+                System.out.println("Общее количество строк в файле: " + lines);
+                System.out.println("Длина самой длинной строки в файле: "+ max);
+                System.out.println("Длина самой короткой строки в файле: " + min);
             } catch (FileNotFoundException ex) {
-                throw new IllegalArgumentException("Ошибка ресурса", ex);
+                System.out.println(ex);
             }
             catch (IOException ex) {
-            throw new IllegalArgumentException("Ресурс отсутствует", ex);
-        }
+           System.out.println ("Проблема с файлом " + ex);
+        } continue;
     }
 }
 }
