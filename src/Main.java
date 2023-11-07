@@ -1,7 +1,5 @@
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -25,18 +23,33 @@ public class Main {
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line;
                 int lines = 0;
-                List <Integer> len = new ArrayList<>();
+                int countYandexBot=0;
+                int countGoogleBot=0;
+                final String GOOGLEBOT= "Googlebot";
+                final String YANDEXBOT= "YandexBot";
                 while ((line = reader.readLine()) != null) {
                     int length = line.length();
-                    if (length > 1024) throw new InvalidLineLenghtException ("В файле строка " + lines + ",длиннее 1024 символов. Размер строки " +length+ " символа!");
-                    len.add(length);
+                    if (length > 1024)
+                        throw new InvalidLineLenghtException("В файле строка " + lines + ",длиннее 1024 символов. Размер строки " + length + " символа!");
                     lines++;
+                    int firstIndexOf = 0;
+                    if (line.indexOf("(c") > 0) {
+                        firstIndexOf = line.indexOf("(c");
+                    }
+                    String firstBrackets = line.substring(firstIndexOf);
+                    String[] parts = firstBrackets.split(";");
+                    String fragment="";
+                    if (parts.length >= 2) {fragment = parts[1].trim();}
+                    String[] parts2 = fragment.split("/");
+                    String bot = parts2 [0];
+                    if(bot.equals(GOOGLEBOT)) countGoogleBot++;
+                    if(bot.equals(YANDEXBOT)) countYandexBot++;
                 }
-                int max = len.stream().max(Integer::compare).get();
-                int min = len.stream().min(Integer::compare).get();
                 System.out.println("Общее количество строк в файле: " + lines);
-                System.out.println("Длина самой длинной строки в файле: "+ max);
-                System.out.println("Длина самой короткой строки в файле: " + min);
+                double prosentGoogleBot = (double) countGoogleBot/lines*100;
+                double prosentYandexBot = (double) countYandexBot/lines*100;
+                System.out.println("Долю запросовYandexBot: " + prosentYandexBot);
+                System.out.println("Долю запросовGoogleBot: " + prosentGoogleBot);
             } catch (FileNotFoundException ex) {
                 System.out.println(ex);
             }
@@ -45,5 +58,6 @@ public class Main {
                 ex.printStackTrace();
         } continue;
     }
+    }
 }
-}
+
