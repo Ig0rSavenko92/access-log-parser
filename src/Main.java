@@ -44,8 +44,8 @@ public class Main {
                 System.out.println("Общее количество строк в файле: " + lines);
                 double prosentGoogleBot = (double) countGoogleBot/lines*100;
                 double prosentYandexBot = (double) countYandexBot/lines*100;
-                System.out.println("Долю запросовYandexBot: " + prosentYandexBot);
-                System.out.println("Долю запросовGoogleBot: " + prosentGoogleBot);
+                System.out.println("Доля запросовYandexBot: " + prosentYandexBot);
+                System.out.println("Доля запросовGoogleBot: " + prosentGoogleBot);
             } catch (FileNotFoundException ex) {
                 System.out.println("Ошибка! " + ex);
             }
