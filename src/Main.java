@@ -11,13 +11,12 @@ public class Main {
             File file = new File(path);
             boolean fileExist = file.exists();
             boolean isDirectory = file.isDirectory();
-            if (fileExist == false)
+            if (!fileExist)
                 System.out.println("Указанный файл не существуе");
-            if (isDirectory == true)
+            if (isDirectory)
                 System.out.println("Указанный путь является путём к папке, а не к файлу");
-            if (fileExist == true && isDirectory == false)
+            if (fileExist && !isDirectory)
                 System.out.println("Путь указан верно. " + "Это файл номер " + count++);
-            if (fileExist == true && isDirectory == false) ;
             try {
                 FileReader fileReader = new FileReader(path);
                 BufferedReader reader = new BufferedReader(fileReader);
@@ -32,10 +31,7 @@ public class Main {
                     if (length > 1024)
                         throw new InvalidLineLenghtException("В файле строка " + lines + ",длиннее 1024 символов. Размер строки " + length + " символа!");
                     lines++;
-                    int firstIndexOf = 0;
-                    if (line.indexOf("(c") > 0) {
-                        firstIndexOf = line.indexOf("(c");
-                    }
+                    int firstIndexOf = Math.max(line.indexOf("(c"), 0);
                     String firstBrackets = line.substring(firstIndexOf);
                     String[] parts = firstBrackets.split(";");
                     String fragment="";
@@ -51,11 +47,10 @@ public class Main {
                 System.out.println("Долю запросовYandexBot: " + prosentYandexBot);
                 System.out.println("Долю запросовGoogleBot: " + prosentGoogleBot);
             } catch (FileNotFoundException ex) {
-                System.out.println(ex);
+                System.out.println("Ошибка! " + ex);
             }
             catch (IOException ex) {
             System.out.println ("Ошибка при вводе/выводе данных из файла!");
-                ex.printStackTrace();
         } continue;
     }
     }
