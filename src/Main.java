@@ -1,7 +1,6 @@
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +28,7 @@ public class Main {
                 List <Integer> len = new ArrayList<>();
                 while ((line = reader.readLine()) != null) {
                     int length = line.length();
+                    if (length > 1024) throw new InvalidLineLenghtException ("В файле строка " + lines + ",длиннее 1024 символов. Размер строки " +length+ " символа!");
                     len.add(length);
                     lines++;
                 }
@@ -41,7 +41,8 @@ public class Main {
                 System.out.println(ex);
             }
             catch (IOException ex) {
-           System.out.println ("Проблема с файлом " + ex);
+            System.out.println ("Ошибка при вводе/выводе данных из файла!");
+                ex.printStackTrace();
         } continue;
     }
 }
