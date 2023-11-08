@@ -1,5 +1,7 @@
 
 import java.io.*;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -40,6 +42,10 @@ public class Main {
                     String bot = parts2 [0];
                     if(bot.equals(GOOGLEBOT)) countGoogleBot++;
                     if(bot.equals(YANDEXBOT)) countYandexBot++;
+                    LogEntry log = new LogEntry(line);
+                    UserAgent ag = new UserAgent(log.userAgent);
+                    System.out.println(log);
+                    System.out.println(ag);
                 }
                 System.out.println("Общее количество строк в файле: " + lines);
                 double prosentGoogleBot = (double) countGoogleBot/lines*100;
@@ -51,7 +57,10 @@ public class Main {
             }
             catch (IOException ex) {
             System.out.println ("Ошибка при вводе/выводе данных из файла!");
-        } continue;
+           } catch (ParseException e) {
+                System.out.println ("Ошибка даты!: " + e);
+            }
+            continue;
     }
     }
 }
