@@ -1,7 +1,6 @@
 
 import java.io.*;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
