@@ -1,33 +1,43 @@
 public class UserAgent {
 final String typeSystem; //Windows, macOS или Linux
-//final String browser; //Edge, Firefox, Chrome, Opera, Bot, Feedly
+final String browser; //Edge, Firefox, Chrome, Opera или Safari
 
     public UserAgent(String userAgent) {
-        String one2PartsTypeSystem = getTypeSystem(userAgent);
-        System.out.println(one2PartsTypeSystem);
-        String typeSystem = "-";
-        if (one2PartsTypeSystem.equals("Windows")) {typeSystem="Windows";
-        }
-        if (one2PartsTypeSystem.equals("Linux")||one2PartsTypeSystem.equals("X11")) {typeSystem="Linux";
-        }
-        if (one2PartsTypeSystem.equals("iPad")||one2PartsTypeSystem.equals("Macintosh")||one2PartsTypeSystem.equals("iPhone")) {typeSystem="macOS";
-        }
-        this.typeSystem = typeSystem;
+        this.typeSystem = addTypeSystem(userAgent);
+        this.browser = addBrowser(userAgent);
     }
 
-    private static String getTypeSystem(String userAgent) {
-        int firstIndexOtypeSystem = Math.max(userAgent.indexOf("("), 0);
-        String lineTypeSystem = userAgent.substring(firstIndexOtypeSystem).trim();
-        String[] partsTypeSystem = lineTypeSystem.split(";");
-        String onePartsTypeSystem = partsTypeSystem[0].trim().replace("(","");
-        String[] parts2TypeSystem = onePartsTypeSystem.split(" ");
-        return parts2TypeSystem[0].trim();
+    private static String addTypeSystem(String userAgent) {
+        String typeSystem = "-";
+        if (userAgent.contains("Windows")) {typeSystem="Windows";}
+        if (userAgent.contains("Linux")||userAgent.contains("X11")) {typeSystem="Linux";}
+        if (userAgent.contains("Mac OS")) {typeSystem="macOS";}
+        return typeSystem;
+    }
+    private static String addBrowser (String userAgent) {
+    String lineBrowser = "-";
+    if (userAgent.contains("Firefox")){lineBrowser ="Firefox";}
+    if (userAgent.contains("Presto")){lineBrowser ="Opera";}
+    if (userAgent.contains("Chrome") && userAgent.contains("Safari")){lineBrowser ="Chrome";}
+    if (userAgent.contains("Chrome") && userAgent.contains("Safari")&& userAgent.contains("Edg")){lineBrowser ="Edg";}
+    if (userAgent.contains("Chrome") && userAgent.contains("Safari")&& userAgent.contains("OPR")){lineBrowser ="Opera";}
+    if (userAgent.contains("Version") && userAgent.contains("Safari")){lineBrowser ="Safari";}
+    return lineBrowser;
+    }
+
+    public String getTypeSystem() {
+        return typeSystem;
+    }
+
+    public String getBrowser() {
+        return browser;
     }
 
     @Override
     public String toString() {
         return "UserAgent{" +
                 "typeSystem=" + typeSystem +
+                ", browser=" + browser +
                 '}';
     }
 }
