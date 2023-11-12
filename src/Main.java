@@ -1,6 +1,7 @@
 
 import java.io.*;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -55,6 +56,8 @@ public class Main {
                 System.out.println("Доля запросов YandexBot: " + prosentYandexBot);
                 System.out.println("Доля запросов GoogleBot: " + prosentGoogleBot);
                 System.out.println("Часовой трафик: " + s1.getTrafficRate());
+                System.out.println("Список всех существующих страниц сайта: " + s1.getHashSetRefer());
+                System.out.println("Статистика операционных систем пользователей сайта: " + s1.getTypeSystemStatistics());
 
             } catch (FileNotFoundException ex) {
                 System.out.println("Ошибка! " + ex);
