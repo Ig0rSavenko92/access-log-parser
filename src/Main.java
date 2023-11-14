@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -43,7 +42,6 @@ public class Main {
                     if(bot.equals(GOOGLEBOT)) countGoogleBot++;
                     if(bot.equals(YANDEXBOT)) countYandexBot++;
                     LogEntry log = new LogEntry(line);
-                    UserAgent ag = new UserAgent(log.userAgent);
                     s1.addEntry(log);
                 }
                 System.out.println("Общее количество строк в файле: " + lines);
@@ -59,6 +57,9 @@ public class Main {
                 System.out.println("Список всех не существующих страниц сайта: " + s1.getHashSetRefer404());
                 System.out.println("Статистика операционных систем пользователей: " + s1.getTypeSystemStatistics());
                 System.out.println("Статистика браузеров пользователей: " + s1.getBrowserStatistics());
+                System.out.println("Cреднее количество посещений пользователями сайта за час: " + s1.getAvgCountUserHour());
+                System.out.println("Cреднее количества ошибочных запросов в час: " + s1.getErrorResponseCodeHour());
+                System.out.println("Cредняя посещаемость одним пользователем: " + s1.getUserAvgAttendance());
 
             } catch (FileNotFoundException ex) {
                 System.out.println("Ошибка! " + ex);
