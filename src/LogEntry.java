@@ -9,7 +9,7 @@ public class LogEntry {
    final LocalDateTime time;
    final HttpMethod method;
    final String path;
-   final int respronseCode;
+   final int responseCode;
    final int responseSize;
    final String referer;
    final String userAgent;
@@ -37,7 +37,7 @@ public class LogEntry {
         String lineCode = line.substring(lastIndexOfpath+1).trim();
         String[] partsCode = lineCode.split(" ");
         String codeStr = partsCode[0].trim();
-        this.respronseCode= Integer.parseInt(codeStr);
+        this.responseCode= Integer.parseInt(codeStr);
 
         String sizeStr = partsCode[1].trim();
         this.responseSize=Integer.parseInt(sizeStr);
@@ -65,7 +65,7 @@ public class LogEntry {
     }
 
     public int getRespronseCode() {
-        return respronseCode;
+        return responseCode;
     }
 
     public int getResponseSize() {
@@ -87,7 +87,7 @@ public class LogEntry {
                 ", time=" + time +
                 ", method=" + method +
                 ", path=" + path  +
-                ", respronseCode=" + respronseCode +
+                ", respronseCode=" + responseCode +
                 ", responseSize=" + responseSize +
                 ", referer=" + referer +
                 ", userAgent=" + userAgent +
