@@ -92,7 +92,6 @@ final String userAgent;
         return isBot;
     }
 
-
     public String getTypeSystem() {
         return typeSystem;
     }
