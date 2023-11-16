@@ -43,6 +43,7 @@ public class Main {
                     if(bot.equals(YANDEXBOT)) countYandexBot++;
                     LogEntry log = new LogEntry(line);
                     s1.addEntry(log);
+
                 }
                 System.out.println("Общее количество строк в файле: " + lines);
                 double prosentGoogleBot = (double) countGoogleBot/lines*100;
@@ -60,6 +61,9 @@ public class Main {
                 System.out.println("Cреднее количество посещений пользователями сайта за час: " + s1.getAvgCountUserHour());
                 System.out.println("Cреднее количества ошибочных запросов в час: " + s1.getErrorResponseCodeHour());
                 System.out.println("Cредняя посещаемость одним пользователем: " + s1.getUserAvgAttendance());
+                System.out.println("Пиковая посещаемость сайта (в секунду): " + s1.getMaxBrowserSeconds());
+                System.out.println("Максимальная посещаемость одним пользователем: " + s1.getMaxUserIp());
+                System.out.println("Cписок сайтов, со страниц которых есть ссылки на текущий сайт.: " + s1.getAdressDomen());
 
             } catch (FileNotFoundException ex) {
                 System.out.println("Ошибка! " + ex);
@@ -70,7 +74,8 @@ public class Main {
                 System.out.println ("Ошибка даты!: " + e);
             }
             continue;
-    }
+        }
+
     }
 }
 
