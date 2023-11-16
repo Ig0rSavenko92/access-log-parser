@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -14,6 +15,9 @@ public class Statistics {
     private int countUserBrowser;
     private int countErrorResponseCode;
     private final HashSet<String> hashSetIpAddr = new HashSet<>();
+    private final HashMap <LocalDateTime, Integer> countBrowserSecond= new HashMap<>();
+    private final HashMap <String, Integer> countUserIp= new HashMap<>();
+    private final  HashSet<String> hashSetAdressDomen = new HashSet<>();
 
     public Statistics() {
     }
@@ -45,7 +49,9 @@ public class Statistics {
     public HashSet<String> getHashSetIpAddr() {
         return hashSetIpAddr;
     }
-
+    public HashSet<String> getAdressDomen() {
+        return hashSetAdressDomen;
+    }
 
     public void addEntry (LogEntry log) {
         this.totalTraffic =this.totalTraffic + log.responseSize;
@@ -62,6 +68,13 @@ public class Statistics {
         char code = Integer.toString(log.responseCode).charAt(0);
         if (code=='4'||code=='5') this.countErrorResponseCode = this.countErrorResponseCode+1;
         if (!ua.isBot().equals("bot")) this.hashSetIpAddr.add(log.ipAddr);
+        if (!ua.isBot().equals("bot")&&countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,countBrowserSecond.get(log.time)+1);
+        if (!ua.isBot().equals("bot")&&!countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,1);
+        if (!ua.isBot().equals("bot")&&countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,countBrowserSecond.get(log.time)+1);
+        if (!ua.isBot().equals("bot")&&!countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,1);
+
+        String[] partsReferer = log.referer.split("/");
+        if (!log.referer.equals("-")&&partsReferer.length>1) this.hashSetAdressDomen.add(partsReferer[2].replace("/","").trim());
     }
 
     public long getTrafficRate () {
@@ -112,6 +125,10 @@ public class Statistics {
     public int getUserAvgAttendance  () {
         return  countUserBrowser/this.hashSetIpAddr.size();
     }
-
-
+    public int getMaxBrowserSeconds  () {
+        return  countBrowserSecond.values().stream().max(Comparator.naturalOrder()).get();
+    }
+    public int getMaxUserIp  () {
+        return  countUserIp.values().stream().max(Comparator.naturalOrder()).get();
+    }
 }
