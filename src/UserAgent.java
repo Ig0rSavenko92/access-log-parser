@@ -40,7 +40,7 @@ final String userAgent;
     }
     public boolean isBot () {
         boolean isBot = false;
-        if (this.userAgent.contains("bot")) isBot = false;
+        if (this.userAgent.contains("bot")) isBot = true;
         return isBot;
     }
 
