@@ -64,14 +64,14 @@ public class Statistics {
         if (!ua.typeSystem.equals("-")&&hashMapTypeSystem.containsKey(ua.typeSystem)) this.hashMapTypeSystem.put(ua.typeSystem,hashMapTypeSystem.get(ua.typeSystem)+1);
         if (!hashMapBrowser.containsKey(ua.browser)) this.hashMapBrowser.put(ua.browser,1);
         if (hashMapBrowser.containsKey(ua.browser)) this.hashMapBrowser.put(ua.browser,hashMapBrowser.get(ua.browser)+1);
-        if (!ua.isBot().equals("bot")) this.countUserBrowser = this.countUserBrowser+1;
+        if (!ua.isBot()) this.countUserBrowser = this.countUserBrowser+1;
         char code = Integer.toString(log.responseCode).charAt(0);
         if (code=='4'||code=='5') this.countErrorResponseCode = this.countErrorResponseCode+1;
-        if (!ua.isBot().equals("bot")) this.hashSetIpAddr.add(log.ipAddr);
-        if (!ua.isBot().equals("bot")&&countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,countBrowserSecond.get(log.time)+1);
-        if (!ua.isBot().equals("bot")&&!countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,1);
-        if (!ua.isBot().equals("bot")&&countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,countBrowserSecond.get(log.time)+1);
-        if (!ua.isBot().equals("bot")&&!countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,1);
+        if (!ua.isBot()) this.hashSetIpAddr.add(log.ipAddr);
+        if (!ua.isBot()&&countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,countBrowserSecond.get(log.time)+1);
+        if (!ua.isBot()&&!countBrowserSecond.containsKey(log.time)) this.countBrowserSecond.put(log.time,1);
+        if (!ua.isBot()&&countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,countBrowserSecond.get(log.time)+1);
+        if (!ua.isBot()&&!countUserIp.containsKey(log.ipAddr)) this.countUserIp.put(log.ipAddr,1);
 
         String[] partsReferer = log.referer.split("/");
         if (!log.referer.equals("-")&&partsReferer.length>1) this.hashSetAdressDomen.add(partsReferer[2].replace("/","").trim());
